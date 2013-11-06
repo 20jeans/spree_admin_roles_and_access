@@ -3,7 +3,7 @@ CanCan::ControllerAdditions.class_eval do
   def authorize_with_attributes!(action, subject, attributes = [])
     attributes = attributes.keys if attributes.is_a?(Hash)
     if attributes.is_a? Array
-      attributes.each { |attribute| authorize!(action, subject, attribute) }
+      attributes.each{|attribute| authorize!(action, subject, attribute) }
     else
       authorize!(action, subject)
     end

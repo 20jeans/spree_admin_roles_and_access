@@ -45,16 +45,17 @@ module Spree
     end
 
     private
-      def find_action_and_subject(name)
-        can, action, subject, attribute = name.to_s.split('-')
- 
-        if subject == 'all'
-          return can.to_sym, action.to_sym, subject.to_sym, attribute.try(:to_sym)
-        elsif (subject_class = subject.classify.safe_constantize) && subject_class.ancestors.include?(ActiveRecord::Base)
-          return can.to_sym, action.to_sym, subject_class, attribute.try(:to_sym)
-        else
-          return can.to_sym, action.to_sym, subject, attribute.try(:to_sym)
-        end
+
+    def find_action_and_subject(name)
+      can, action, subject, attribute = name.to_s.split('-')
+
+      if subject == 'all'
+        return can.to_sym, action.to_sym, subject.to_sym, attribute.try(:to_sym)
+      elsif (subject_class = subject.classify.safe_constantize) && subject_class.ancestors.include?(ActiveRecord::Base)
+        return can.to_sym, action.to_sym, subject_class, attribute.try(:to_sym)
+      else
+        return can.to_sym, action.to_sym, subject, attribute.try(:to_sym)
       end
+    end
   end
 end

@@ -9,7 +9,7 @@ Spree::Admin::BaseController.class_eval do
         record = model_class
         raise if record.blank?  ## This is done because on some machines model_class returns nil instead of raising an exception.
       end
-    rescue
+    rescue StandardError => error
       record = "#{params[:controller]}"
     end
     authorize! :admin, record
@@ -17,7 +17,8 @@ Spree::Admin::BaseController.class_eval do
   end
 
   private
-    def new_action?
-      NEW_ACTIONS.include?(params[:action].to_sym)
-    end
+
+  def new_action?
+    NEW_ACTIONS.include?(params[:action].to_sym)
+  end
 end
