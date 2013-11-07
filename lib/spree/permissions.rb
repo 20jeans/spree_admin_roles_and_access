@@ -1,6 +1,7 @@
 module Spree
   module Permissions
-    def method_missing(name, current_ability, user)
+    def method_missing(name, *args)
+      current_ability, user = args
       can, action, subject, attribute = find_action_and_subject(name)
 
       Permissions.send(:define_method, name) do |current_ability, user|
